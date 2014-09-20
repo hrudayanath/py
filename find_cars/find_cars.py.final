@@ -1,0 +1,36 @@
+#find_cars.py
+
+
+import time
+import urllib
+from xml.etree.ElementTree import parse
+
+urls = {'vantrow':'http://vantrowtoyota.com/Monroe-Louisiana/For-Sale/Used/?MaxMSRP=10000&MinYear=2007', 'sparksnissan': 'http://www.sparksnissan.com/inventory/view/Used/Price/5001-10000/Transmissions/Automatic/SortBy0/'}
+
+search_terms = { 'sparksnissan': ['ctl00_ContentSection_ctl03_searchresults', 'vehicletitle'], 'vantrow':[ 'inventory-list','vehicle-make', 'vehicle-model'] }
+
+#search_terms = { 'vantrow': ['vehicledetails', 'pricing']}
+
+def parse_data(site, doc):
+  for bus in doc.findall('bus'):
+    busid = bus.findtext('id')
+       lat = float (bus.findtext('lon'))
+       dis = distance(lat,daves_lon)
+
+def get_data(url):
+ 
+   
+  u = urllib.urlopen(url)
+  doc = parse (u)
+
+def collect_data():
+  for k,v in urls:
+     data = get_data(v)
+     parse_data(k, data)
+
+    
+collect_data()
+new_cars = compare_fornewcars()
+send_alert(new_cars)
+
+
